@@ -58,5 +58,3 @@ int main() {
     printf("* FIM DE JOGO *\n");
     printf("***************\n");
 }
-
-//github test
