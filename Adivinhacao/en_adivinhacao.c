@@ -5,13 +5,13 @@
 
 int main()
 {
-    setlocale(LC_ALL, "Portuguese");
+    setlocale(LC_ALL, "English");
 
     // Cabeçalho
     printf("\n\n");
-    printf("******************************************\n");
-    printf("* Bem vindo ao nosso jogo de adivinhacao *\n");
-    printf("******************************************\n");
+    printf("********************************\n");
+    printf("* Welcome to the Guessing Game *\n");
+    printf("********************************\n");
 
     // Sistema de número secreto random de 1 a 100
     int segundos = time(0);
@@ -30,28 +30,28 @@ int main()
 
     //Dificuldade
     int nivel;
-    printf("\nEscolha o nivel de dificuldade:\n\n");
-    printf("(1) Facil\n");
-    printf("(2) Medio\n");
-    printf("(3) Dificil\n");
-    printf("Escolha: ");
+    printf("\nDifficulty Level:\n\n");
+    printf("(1) Easy\n");
+    printf("(2) Normal\n");
+    printf("(3) Hard\n");
+    printf("Pick a difficulty level: ");
     scanf("%d", &nivel);
 
     switch (nivel)
     {
     case 1:
         vidas = 20;
-        printf("Nivel facil, voce tera %d vidas.\n", vidas);
+        printf("Easy mode, you have %d tries.\n", vidas);
         break;
 
     case 2:
         vidas = 12;
-        printf("Nivel medio, voce tera %d vidas.\n", vidas);
+        printf("Normal mode, you have %d tries.\n", vidas);
         break;
 
     case 3:
         vidas = 6;
-        printf("Nivel dificil, voce tera %d vidas.\n", vidas);
+        printf("Hard mode, you have %d tries.\n", vidas);
         break;
 
     default:
@@ -62,8 +62,8 @@ int main()
     {
 
         printf("____________\n");
-        printf("Tentativa %d.\n", tentativa);
-        printf("Qual eh o seu chute? ");
+        printf("Round %d.\n", tentativa);
+        printf("Guess the Secret Number! Pick a number from 0 to 100: ");
         scanf("%d", &chute);
 
         acertou = (chute == numerosecreto);
@@ -73,7 +73,7 @@ int main()
         //Autenticação
         if (chute < 0)
         {
-            printf("Nao pode chutar numeros negativos.\n");
+            printf("You can't pick a numbers below 0.\n");
             vidas++;
             continue;
         }
@@ -84,16 +84,16 @@ int main()
         }
         else
         {
-            printf("Voce errou!\n");
+            printf("Wrong guess!\n");
 
             if (maior)
             {
-                printf("Seu numero foi MAIOR.\n");
+                printf("Your number was HIGHER than the Secret Number.\n");
                 tentativa++;
             }
             else if (menor)
             {
-                printf("Seu numero foi MENOR.\n");
+                printf("Your number was LOWER than the Secret Number.\n");
                 tentativa++;
             }
         }
@@ -103,21 +103,21 @@ int main()
 
     if (acertou)
     {
-        printf("*************\n");
-        printf("* Parabens! *\n");
-        printf("*************\n\n");
+        printf("********************\n");
+        printf("* CONGRATULATIONS! *\n");
+        printf("********************\n\n");
 
-        printf("Voce acertou em %d tentativas!\n", tentativa);
+        printf("You guessed in %d tries!\n", tentativa);
 
-        printf("Viva sua vida.\n\n");
+        printf("Now go live your life enough games ffs.\n\n");
 
-        printf("=== FIM DE JOGO ===\n");
-        printf("Pontuacao: %.2f.\n", pontos);
-        printf("===================\n\n");
+        printf("=== GAME OVER ===\n");
+        printf("Score: %.2f.\n", pontos);
+        printf("=================\n\n");
     }
     else
     {
-        printf("\nVoce perdeu!\n");
-        printf("=== FIM DE JOGO ===\n");
+        printf("\nYou Lost!\n");
+        printf("=== GAME OVER ===\n");
     }
 }
