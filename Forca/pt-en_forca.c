@@ -17,7 +17,7 @@ int main()
         {
             if (palavraSecreta[i] == chute)
             {
-                printf("A posicao %d tem essa letra.\n, i");
+                printf("A posicao %d tem essa letra.\n", i+1);
    
             }
             
