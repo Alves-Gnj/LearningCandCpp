@@ -1,10 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+char **mapa;
+int linhas;
+int colunas;
+
+void liberaMapa()
+{
+    for (int i = 0; i < linhas; i++)
+    {
+        free(mapa[i]);
+    }
+    free(mapa);
+}
 
 int main()
 {
-    // matriz de 5x10
-    char mapa[5][10];
 
     FILE *f;
     f = fopen("mapa.txt", "r");
@@ -14,8 +24,26 @@ int main()
         exit(1);
     }
 
-    for (int i = 0, i < 4, i++)
+    fscanf(f, "%d %d", &linhas, &colunas);
+    printf("linhas %d colunas %d \n", linhas, colunas);
+
+    // Alocando memória
+    mapa = malloc(sizeof(char *) * linhas);
+    for (int i = 0; i < linhas; i++)
+    {
+        mapa[i] = malloc(sizeof(char) * (colunas + 1));
+    }
+
+    /////////////////
+
+    for (int i = 0; i < 5; i++)
     {
         fscanf(f, "%s", mapa[i]);
     }
+
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%s\n", mapa[i]);
+    }
+    fclose(f);
 }
