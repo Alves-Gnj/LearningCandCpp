@@ -18,28 +18,28 @@ void move(char direcao)
     int x;
     int y;
 
-    m.matriz[heroi.x][heroi.y] = '.';
+    m.matriz[player.x][player.y] = '.';
 
     switch (direcao)
     {
     case 'a':
-        m.matriz[heroi.x][heroi.y - 1] = '@';
-        heroi.y--;
+        m.matriz[player.x][player.y - 1] = '@';
+        player.y--;
         break;
 
     case 'w':
-        m.matriz[heroi.x - 1][heroi.y] = '@';
-        heroi.x--;
+        m.matriz[player.x - 1][player.y] = '@';
+        player.x--;
         break;
 
     case 's':
-        m.matriz[heroi.x + 1][heroi.y] = '@';
-        heroi.x++;
+        m.matriz[player.x + 1][player.y] = '@';
+        player.x++;
         break;
 
     case 'd':
-        m.matriz[heroi.x][heroi.y + 1] = '@';
-        heroi.y++;
+        m.matriz[player.x][player.y + 1] = '@';
+        player.y++;
         break;
     }
 }
