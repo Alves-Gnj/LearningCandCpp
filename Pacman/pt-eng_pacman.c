@@ -1,27 +1,27 @@
+// C_Cpp.clang_format_fallbackStyle
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "pacman.h" 
+#include "pacman.h"
 
-char **mapa;
-int linhas;
-int colunas;
+MAPA m;
 
 void alocaMemoria()
 {
-    mapa = malloc(sizeof(char *) * linhas);
-    for (int i = 0; i < linhas; i++)
+    m.matriz = malloc(sizeof(char *) * m.linhas);
+    for (int i = 0; i < m.linhas; i++)
     {
-        mapa[i] = malloc(sizeof(char) * (colunas + 1));
+        m.matriz[i] = malloc(sizeof(char) * (m.colunas + 1));
     }
 }
 
 void liberaMapa()
 {
-    for (int i = 0; i < linhas; i++)
+    for (int i = 0; i < m.linhas; i++)
     {
-        free(mapa[i]);
+        free(m.matriz[i]);
     }
-    free(mapa);
+    free(m.matriz);
 }
 
 void leMapa()
@@ -34,25 +34,84 @@ void leMapa()
         exit(1);
     }
 
-    fscanf(f, "%d %d", &linhas, &colunas);
+    fscanf(f, "%d %d", &(m.linhas), &(m.colunas));
 
     alocaMemoria();
 
     for (int i = 0; i < 5; i++)
     {
-        fscanf(f, "%s", mapa[i]);
+        fscanf(f, "%s", m.matriz[i]);
     }
 
     fclose(f);
+}
+
+void imprimeMapa()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%s\n", m.matriz[i]);
+    }
+}
+
+int acabou()
+{
+    return 0;
+}
+
+void move(char direcao)
+{
+    int x;
+    int y;
+
+    // acha a posição do jogador
+    for (int i = 0; i < m.linhas; i++)
+    {
+        for (int j = 0; j < m.colunas; j++)
+        {
+            if (m.matriz[i][j] == '@')
+            {
+                x = i;
+                y = j;
+                break;
+            }
+        }
+    }
+
+    switch (direcao)
+    {
+    case 'a':
+        m.matriz[x][y - 1] = '@';
+        break;
+
+    case 'w':
+        m.matriz[x - 1][y] = '@';
+        break;
+
+    case 's':
+        m.matriz[x + 1][y] = '@';
+        break;
+
+    case 'd':
+        m.matriz[x][y + 1] = '@';
+        break;
+    }
+
+    m.matriz[x][y] = '.';
 }
 
 int main()
 {
     leMapa();
 
-    for (int i = 0; i < 5; i++)
+    do
     {
-        printf("%s\n", mapa[i]);
-    }
+        imprimeMapa();
+        char comando;
+        scanf(" %c", &comando);
+        move(comando);
+
+    } while (!acabou());
+
     liberaMapa();
 }
