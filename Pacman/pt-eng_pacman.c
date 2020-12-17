@@ -6,6 +6,7 @@
 
 #include "mapa.h"
 #include "pacman.h"
+#include "ui.h"
 
 MAPA m;
 POSICAO player;
@@ -145,3 +146,4 @@ int main() {
 
   liberaMapa(&m);
 }
+

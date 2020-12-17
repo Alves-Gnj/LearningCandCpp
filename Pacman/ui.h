@@ -1,34 +1,9 @@
-char desenhoparede[4][7] = {
-    {"......" },
-    {"......" },
-    {"......" },
-    {"......" }
-};
+#ifndef _UI_H_
+#define _UI_H_
 
-char desenhofantasma[4][7] = {
-    {" .-.  " },
-    {"| OO| " },
-    {"|   | " },
-    {"'^^^' " }
-};
+#include "mapa.h"
 
-char desenhoheroi[4][7] = {
-    {" .--. "  },
-    {"/ _.-'"  },
-    {"\\  '-." },
-    {" '--' "  }
-};
+void imprimeMapa(MAPA *m);
+void imprimeParte(char desenho[4][7], int parte);
 
-char desenhopilula[4][7] = {
-    {"      "},
-    {" .-.  "},
-    {" '-'  "},
-    {"      "}
-};
-
-char desenhovazio[4][7] = {
-    {"      "},
-    {"      "},
-    {"      "},
-    {"      "}
-};
+#endif

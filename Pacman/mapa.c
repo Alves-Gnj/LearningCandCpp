@@ -91,9 +91,3 @@ void leMapa(MAPA *m) {
 
   fclose(f);
 }
-
-void imprimeMapa(MAPA *m) {
-  for (int i = 0; i < 5; i++) {
-    printf("%s\n", m->matriz[i]);
-  }
-}
