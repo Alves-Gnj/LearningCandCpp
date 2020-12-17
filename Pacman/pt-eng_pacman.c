@@ -9,6 +9,7 @@
 
 MAPA m;
 POSICAO player;
+int temPilula = 0;
 
 int praOndeFantasmaVai(int xAtual, int yAtual, int* xDestino, int* yDestino) {
   int opcoes[4][2] = {
@@ -90,10 +91,39 @@ void move(char direcao) {
 
   if (!podeAndar(&m, PLAYER, proximox, proximoy)) return;
 
+  //...
+  if (ehPersonagem(&m, PILULA, proximox, proximoy)) {
+    temPilula = 1;
+  }
+
   andaNoMapa(&m, player.x, player.y, proximox, proximoy);
 
   player.x = proximox;
   player.y = proximoy;
+}
+
+void explodePilula() {
+  if (!temPilula) return;
+
+  explodePilula2(player.x, player.y, 0, 1, 3);
+  explodePilula2(player.x, player.y, 0, -1, 3);
+  explodePilula2(player.x, player.y, 1, 0, 3);
+  explodePilula2(player.x, player.y, -1, 0, 3);
+
+  temPilula = 0;
+}
+
+void explodePilula2(int x, int y, int somaX, int somaY, int qtd) {
+  if (qtd == 0) return;
+
+  int novoX = x + somaX;
+  int novoY = y + somaY;
+
+  if (!ehValida(&m, novoX, novoY)) return;
+  if (ehParede(&m, novoX, novoY)) return;
+
+  m.matriz[novoX][novoY] = VAZIO;
+  explodePilula2(novoX, novoY, somaX, somaY, qtd - 1);
 }
 
 int main() {
@@ -101,10 +131,14 @@ int main() {
   encontraPlayer(&m, &player, PLAYER);
 
   do {
+    printf("Tem Pilula: %s\n", (temPilula ? "SIM" : "NAO"));
     imprimeMapa(&m);
+
     char comando;
     scanf(" %c", &comando);
     move(comando);
+    if (comando == BOMBA) explodePilula(player.x, player.y, 3);
+
     fantasmas();
 
   } while (!acabou());
