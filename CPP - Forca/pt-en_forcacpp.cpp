@@ -1,15 +1,18 @@
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
 using namespace std;
 
-const string PALAVRA_SECRETA = "MELANCIA";
+string palavraSecreta = "MELANCIA";
 map<char, bool> chutou;
 vector<char> chutesErrados;
 
 bool letraExiste(char chute) {
-  for (char letra : PALAVRA_SECRETA) {
+  for (char letra : palavraSecreta) {
     if (chute == letra) {
       return true;
     }
@@ -19,7 +22,7 @@ bool letraExiste(char chute) {
 }
 
 bool naoAcertou() {
-  for (char letra : PALAVRA_SECRETA) {
+  for (char letra : palavraSecreta) {
     if (!chutou[letra]) {
       return true;
     }
@@ -45,7 +48,7 @@ void tentativaErrada() {
 }
 
 void imprimePalavra() {
-  for (char letra : PALAVRA_SECRETA) {
+  for (char letra : palavraSecreta) {
     if (chutou[letra]) {
       cout << letra << " ";
     } else {
@@ -71,10 +74,75 @@ void chuta() {
   cout << endl;
 }
 
+vector<string> leArquivo() {
+  ifstream arquivo;
+  arquivo.open("palavras.txt");
+
+  if (arquivo.is_open()) {
+    int quantidadePalavras;
+    arquivo >> quantidadePalavras;
+
+    vector<string> palavrasArquivo;
+
+    for (int i = 0; i < quantidadePalavras; i++) {
+      string palavraLida;
+      arquivo >> palavraLida;
+      palavrasArquivo.push_back(palavraLida);
+    }
+    arquivo.close();
+    return palavrasArquivo;
+  } else {
+    cout << "Banco de palavras não foi localizado." << endl;
+    exit(0);
+  }
+}
+
+void sorteiaPalavra() {
+  vector<string> palavras = leArquivo();
+
+  srand(time(NULL));
+  int indiceSorteado = rand() % palavras.size();
+
+  palavraSecreta = palavras[indiceSorteado];
+}
+
+void salvaArquivo(vector<string> novaLista) {
+  ofstream arquivo;
+  arquivo.open("palavras.txt");
+
+  if (arquivo.is_open()) {
+    arquivo << novaLista.size() << endl;
+
+    for (string palavra : novaLista) {
+      arquivo << palavra << endl;
+    }
+
+    arquivo.close();
+  } else {
+    cout << "Banco de palavras não foi localizado." << endl;
+    exit(0);
+  }
+}
+
+void adicionaPalavra() {
+  cout << "Digite a nova palavra usando letras maiúsculas:" << endl;
+  string novaPalavra;
+  cin >> novaPalavra;
+
+  vector<string> listaPalavras = leArquivo();
+  listaPalavras.push_back(novaPalavra);
+
+  salvaArquivo(listaPalavras);
+}
+
 // principal
 
 int main() {
   imprimeCabecalho();
+
+  leArquivo();
+
+  sorteiaPalavra();
 
   while (naoAcertou() && naoEnforcou()) {
     tentativaErrada();
@@ -84,12 +152,20 @@ int main() {
   }
 
   cout << "Fim de jogo!" << endl;
-  cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl;
+  cout << "A palavra secreta era: " << palavraSecreta << endl;
 
   if (naoAcertou()) {
     cout << "Você perdeu! Pode tentar novamente mas não faço questão..."
          << endl;
   } else {
     cout << "Parabéns, você acertou a palavra secreta!" << endl;
+
+    cout << "Você deseja adicionar uma nova palavra? (S/N)" << endl;
+    char resposta;
+    cin >> resposta;
+
+    if (resposta == 'S') {
+      adicionaPalavra();
+    }
   }
 }
