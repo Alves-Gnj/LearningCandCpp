@@ -1,0 +1,1 @@
+bool letraExiste(char chute);
