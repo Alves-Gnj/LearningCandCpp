@@ -27,7 +27,7 @@ int main() {
 
 	while (naoAcertou(palavraSecreta, chutou) && chutesErrados.size() < 5) {
 
-		tentativaErrada(chutesErrados);
+		forca::tentativaErrada(chutesErrados);
 		imprimePalavra(palavraSecreta, chutou);
 		chuta(chutou, chutesErrados, palavraSecreta);
 	}

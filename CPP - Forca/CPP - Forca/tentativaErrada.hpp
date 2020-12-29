@@ -1,4 +1,5 @@
 #pragma once
 #include <vector>
-
-void tentativaErrada(const std::vector<char>& chutesErrados);
+namespace forca {
+	void tentativaErrada(const std::vector<char>& chutesErrados);
+}
