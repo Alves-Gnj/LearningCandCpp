@@ -1,13 +1,11 @@
-#include <vector>
-#include <iostream>
 #include "tentativaErrada.hpp"
 
-extern std::vector<char> chutesErrados;
+#include <iostream>
 
-void tentativaErrada() {
-  std::cout << "Chutes errados: ";
-  for (char letra : chutesErrados) {
-    std::cout << letra << " ";
-  }
-  std::cout << std::endl;
+void tentativaErrada(const std::vector<char>& chutesErrados) {
+	std::cout << "Chutes errados: ";
+	for (char letra : chutesErrados) {
+		std::cout << letra << " ";
+	}
+	std::cout << std::endl;
 }

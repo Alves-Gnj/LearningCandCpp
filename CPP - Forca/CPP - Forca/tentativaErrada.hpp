@@ -1,3 +1,4 @@
 #pragma once
+#include <vector>
 
-void tentativaErrada();
+void tentativaErrada(const std::vector<char>& chutesErrados);

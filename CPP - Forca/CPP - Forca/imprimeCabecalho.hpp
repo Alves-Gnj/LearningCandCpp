@@ -1,3 +1,8 @@
-#pragma once
+#include <iostream>
 
-void imprimeCabecalho();
+inline void imprimeCabecalho() {
+	std::cout << "**************************" << std::endl;
+	std::cout << "*** JOGO DA FORCA (BR) ***" << std::endl;
+	std::cout << "**************************" << std::endl;
+	std::cout << std::endl;
+}

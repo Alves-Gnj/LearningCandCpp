@@ -1,15 +1,11 @@
 #include "letraExiste.hpp"
 
-#include <string>
+bool letraExiste(char chute, std::string& palavraSecreta) {
+	for (char letra : palavraSecreta) {
+		if (chute == letra) {
+			return true;
+		}
+	}
 
-extern std::string palavraSecreta;
-
-bool letraExiste(char chute) {
-  for (char letra : palavraSecreta) {
-    if (chute == letra) {
-      return true;
-    }
-  }
-
-  return false;
+	return false;
 }

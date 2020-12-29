@@ -1,18 +1,14 @@
 #include "sorteiaPalavra.hpp"
-
-#include <ctime>
-#include <string>
-#include <vector>
-
 #include "leArquivo.hpp"
+#include <vector>
+#include <ctime>
 
-extern std::string palavraSecreta;
+std::string sorteiaPalavra() {
 
-void sorteiaPalavra() {
-  std::vector<std::string> palavras = leArquivo();
+	std::vector<std::string> palavras = leArquivo();
 
-  srand(time(NULL));
-  int indiceSorteado = rand() % palavras.size();
+	srand(time(NULL));
+	int indiceSorteado = rand() % palavras.size();
 
-  palavraSecreta = palavras[indiceSorteado];
+	return palavras[indiceSorteado];
 }

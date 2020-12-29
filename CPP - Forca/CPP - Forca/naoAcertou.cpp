@@ -1,16 +1,10 @@
 #include "naoAcertou.hpp"
 
-#include <map>
-#include <string>
-
-extern std::string palavraSecreta;
-extern std::map<char, bool> chutou;
-
-bool naoAcertou() {
-  for (char letra : palavraSecreta) {
-    if (!chutou[letra]) {
-      return true;
-    }
-  }
-  return false;
+bool naoAcertou(std::string& palavraSecreta, const std::map<char, bool>& chutou) {
+	for (char letra : palavraSecreta) {
+		if (chutou.find(letra) == chutou.end() || !chutou.at(letra)) {
+			return true;
+		}
+	}
+	return false;
 }
